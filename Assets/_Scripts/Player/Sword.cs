@@ -51,7 +51,7 @@ public class Sword : MonoBehaviour
 
         // instantiate slash animation
         slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
-        slashAnim.transform.parent = this.transform.parent;
+        slashAnim.transform.parent = this.transform.parent; // set slash animation parent to player
     }
 
     /// <summary>
