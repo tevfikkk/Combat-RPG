@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private int startingHealth = 3;
+    [SerializeField] private int startingHealth = 3; // The amount of health the enemy starts with.
 
-    private int currentHealth;
+    private int currentHealth; // The current health the enemy has.
 
     private void Start()
     {
-        currentHealth = startingHealth;
+        currentHealth = startingHealth; // Sets the current health to the starting health at the start of the game.
     }
 
+    /// <summary>
+    /// Reduces the enemy's health by the amount of damage taken.
+    /// </summary>
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -21,6 +24,9 @@ public class EnemyHealth : MonoBehaviour
         DetectDeath();
     }
 
+    /// <summary>
+    /// Checks if the enemy's health is 0 or less.
+    /// </summary>
     private void DetectDeath()
     {
         if (currentHealth <= 0)
