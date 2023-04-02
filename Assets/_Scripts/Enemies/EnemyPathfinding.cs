@@ -8,14 +8,23 @@ public class EnemyPathfinding : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveDir;
+    private Knockback knockback; // its purpose is to get the gettingKnockedBack bool from the Knockback script.
 
     private void Awake()
     {
+        knockback = GetComponent<Knockback>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
+        // If the enemy is getting knocked back, then don't move.
+        if (knockback.gettingKnockedBack)
+        {
+            return;
+        }
+
+        // Move the enemy by overriding the velocity. However, if the enemy is getting knocked back, then don't move.
         rb.MovePosition(rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime));
     }
 

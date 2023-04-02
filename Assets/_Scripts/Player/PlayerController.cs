@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
         set => facingLeft = value;
     }
 
+    public static PlayerController Instance;
+
     [SerializeField] private float moveSpeed = 1f;
 
     // Event comes from Input System through Player Controls script
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton pattern
+        Instance = this;
+
         // Create new instance of Player Controls
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
