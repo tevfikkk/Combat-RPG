@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 3; // The amount of health the enemy starts with.
+    [SerializeField] private GameObject deathVFXPrefab; // The death VFX prefab.
 
     private int currentHealth; // The current health the enemy has.
     private Knockback knockback; // The knockback component of the enemy.
+    private Flash flash; // The flash component of the enemy.
 
     private void Awake()
     {
+        flash = GetComponent<Flash>();
         knockback = GetComponent<Knockback>();
     }
 
@@ -25,8 +28,18 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        knockback.GetKnockedBack(PlayerController.Instance.transform, 10f);
-        DetectDeath();
+        knockback.GetKnockedBack(PlayerController.Instance.transform, 10f); // 10f is the knockback thrust. Magic numbers are bad, it will be changed later.
+        StartCoroutine(flash.FlashRoutine());
+        StartCoroutine(CheckDetectDeathRoutine());
+    }
+
+    /// <summary>
+    /// Wait for the flash to finish and then invoke the DetectDeath method.
+    /// </summary>
+    private IEnumerator CheckDetectDeathRoutine()
+    {
+        yield return new WaitForSeconds(flash.GetRestoreDefaultMatTime()); // Wait for the flash to finish.
+        DetectDeath(); // invoke the DetectDeath method.
     }
 
     /// <summary>
@@ -37,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity); // Instantiate the death VFX prefab.
             Destroy(gameObject);
         }
     }

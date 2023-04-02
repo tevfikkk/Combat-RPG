@@ -94,10 +94,10 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.26666668
-    functionName: DestorySelf
+  - time: 0.25
+    functionName: 
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 6915070970634080756, guid: d99f7bfd5593b7544bd370fad9cf0ca8, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
