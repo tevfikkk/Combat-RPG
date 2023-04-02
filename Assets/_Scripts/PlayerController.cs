@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // This is a property. It's a shortcut for a getter and setter.
+    public bool FacingLeft
+    {
+        get => facingLeft;
+        set => facingLeft = value;
+    }
+
     [SerializeField] private float moveSpeed = 1f;
 
     // Event comes from Input System through Player Controls script
@@ -14,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
+
+    private bool facingLeft = false;
 
     private void Awake()
     {
@@ -67,7 +76,18 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void AdjustPlayerFacingDirection()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mySpriteRenderer.flipX = (mousePos - rb.position).x < 0;
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+
+        if (mousePos.x < playerScreenPoint.x)
+        {
+            mySpriteRenderer.flipX = true;
+            FacingLeft = true;
+        }
+        else
+        {
+            mySpriteRenderer.flipX = false;
+            FacingLeft = false;
+        }
     }
 }
