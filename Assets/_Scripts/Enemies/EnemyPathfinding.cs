@@ -19,7 +19,7 @@ public class EnemyPathfinding : MonoBehaviour
     private void FixedUpdate()
     {
         // If the enemy is getting knocked back, then don't move.
-        if (knockback.gettingKnockedBack)
+        if (knockback.GettingKnockedBack)
         {
             return;
         }

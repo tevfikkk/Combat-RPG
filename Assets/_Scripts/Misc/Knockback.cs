@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public bool gettingKnockedBack { get; private set; } // Whether the enemy is getting knocked back or not.
+    public bool GettingKnockedBack { get; private set; } // Whether the enemy is getting knocked back or not.
 
     [SerializeField] private float knockBackTime = .2f; // How long the enemy will be knocked back for.
 
@@ -22,7 +22,7 @@ public class Knockback : MonoBehaviour
     /// </summary>
     public void GetKnockedBack(Transform damageSource, float knockbackThrust)
     {
-        gettingKnockedBack = true; // Set the gettingKnockedBack bool to true.
+        GettingKnockedBack = true; // Set the gettingKnockedBack bool to true.
         Vector2 difference = (transform.position - damageSource.position).normalized * knockbackThrust * rb.mass; // Get the difference between the enemy and the damage source, normalize it, multiply it by the knockback thrust and the enemy's mass.
         rb.AddForce(difference, ForceMode2D.Impulse); // Add force to the enemy.
         StartCoroutine(KnockRoutine()); // Start the knockback routine.
@@ -36,6 +36,6 @@ public class Knockback : MonoBehaviour
     {
         yield return new WaitForSeconds(knockBackTime); // Wait for the knockback time.
         rb.velocity = Vector2.zero; // Set the velocity to zero.
-        gettingKnockedBack = false; // Set the gettingKnockedBack bool to false.
+        GettingKnockedBack = false; // Set the gettingKnockedBack bool to false.
     }
 }

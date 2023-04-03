@@ -8,12 +8,13 @@ public class PlayerController : MonoBehaviour
     public bool FacingLeft
     {
         get => facingLeft;
-        set => facingLeft = value;
     }
 
     public static PlayerController Instance;
 
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float dashSpeed = 3.3f; // dash speed multiplier
+    [SerializeField] private TrailRenderer trailRenderer; // trail renderer for dash effect
 
     // Event comes from Input System through Player Controls script
     private PlayerControls playerControls;
@@ -23,8 +24,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator myAnimator;
     private SpriteRenderer mySpriteRenderer;
+    private float startingMoveSpeed;
 
     private bool facingLeft = false;
+    private bool isDashing = false;
 
     private void Awake()
     {
@@ -36,6 +39,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        // Subscribe to the Attack event
+        playerControls.Combat.Dash.performed += _ => Dash();
+
+        startingMoveSpeed = moveSpeed; // store the starting move speed
     }
 
     // playerControls must be enabled in order to receive input
@@ -87,12 +98,34 @@ public class PlayerController : MonoBehaviour
         if (mousePos.x < playerScreenPoint.x)
         {
             mySpriteRenderer.flipX = true;
-            FacingLeft = true;
+            facingLeft = true;
         }
         else
         {
             mySpriteRenderer.flipX = false;
-            FacingLeft = false;
+            facingLeft = false;
         }
+    }
+
+    private void Dash()
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            moveSpeed *= dashSpeed; // increase the speed to dash speed
+            trailRenderer.emitting = true; // enable the trail renderer
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private IEnumerator EndDashRoutine()
+    {
+        float dashTime = .2f;
+        float dashCD = .25f;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed = startingMoveSpeed; // decrease the speed to normal
+        trailRenderer.emitting = false; // disable the trail renderer
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
     }
 }

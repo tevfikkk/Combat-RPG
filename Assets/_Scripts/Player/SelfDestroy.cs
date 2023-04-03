@@ -16,14 +16,14 @@ public class SelfDestroy : MonoBehaviour
         // If the particle system is not null and it's not alive, then destroy the particle system.
         if (ps && !ps.IsAlive())
         {
-            DestroySelf();
+            DestroySelfAnimEvent();
         }
     }
 
     /// <summary>
     /// Destroys the slash animation
     /// </summary>
-    public void DestroySelf()
+    public void DestroySelfAnimEvent()
     {
         Destroy(gameObject);
     }

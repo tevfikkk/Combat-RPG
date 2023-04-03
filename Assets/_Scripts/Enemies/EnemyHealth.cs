@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 3; // The amount of health the enemy starts with.
     [SerializeField] private GameObject deathVFXPrefab; // The death VFX prefab.
+    [SerializeField] private float knockbackThrust = 10f; // The knockback thrust.
 
     private int currentHealth; // The current health the enemy has.
     private Knockback knockback; // The knockback component of the enemy.
@@ -28,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        knockback.GetKnockedBack(PlayerController.Instance.transform, 10f); // 10f is the knockback thrust. Magic numbers are bad, it will be changed later.
+        knockback.GetKnockedBack(PlayerController.Instance.transform, knockbackThrust); // 10f is the knockback thrust. Magic numbers are bad, it will be changed later.
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
     }
