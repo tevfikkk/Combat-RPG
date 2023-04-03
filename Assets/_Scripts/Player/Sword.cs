@@ -7,11 +7,13 @@ public class Sword : MonoBehaviour
     [SerializeField] private GameObject slashAnimPrefab;
     [SerializeField] private Transform slashAnimSpawnPoint;
     [SerializeField] private Transform weaponCollier;
+    [SerializeField] private float swordAttackCD = 0.5f; // attack cool down seconds
 
     private PlayerControls playerControls;
     private Animator myAnimator;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
+    private bool attackButtonDown, isAttacking = false; // isAttacking is used to prevent spamming attack
 
     private GameObject slashAnim;
 
@@ -30,12 +32,14 @@ public class Sword : MonoBehaviour
 
     private void Start()
     {
-        playerControls.Combat.Attack.started += _ => Attack();
+        playerControls.Combat.Attack.started += _ => StartAttacking();
+        playerControls.Combat.Attack.canceled += _ => StopAttacking();
     }
 
     private void Update()
     {
         MouseFollowWithOffset();
+        Attack();
     }
 
     /// <summary>
@@ -43,15 +47,50 @@ public class Sword : MonoBehaviour
     /// </summary>
     private void Attack()
     {
-        // fire our sword animation
-        myAnimator.SetTrigger("Attack");
+        if (attackButtonDown && !isAttacking)
+        {
+            isAttacking = true;
 
-        // activate weapon collider to detect enemy
-        weaponCollier.gameObject.SetActive(true);
+            // fire our sword animation
+            myAnimator.SetTrigger("Attack");
 
-        // instantiate slash animation
-        slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
-        slashAnim.transform.parent = this.transform.parent; // set slash animation parent to player
+            // activate weapon collider to detect enemy
+            weaponCollier.gameObject.SetActive(true);
+
+            // instantiate slash animation
+            slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
+            slashAnim.transform.parent = this.transform.parent; // set slash animation parent to player
+
+            // Cool down for attack
+            StartCoroutine(AttackCDRoutine());
+        }
+    }
+
+    /// <summary>
+    /// Start attacking when the button is pressed down and the player is alive
+    /// This is an event from PlayerControls script
+    /// </summary>
+    private void StartAttacking()
+    {
+        attackButtonDown = true;
+    }
+
+    /// <summary>
+    /// Stop attacking when the button is released or the player is dead
+    /// This is an event from PlayerControls script
+    /// </summary>
+    private void StopAttacking()
+    {
+        attackButtonDown = false;
+    }
+
+    /// <summary>
+    /// Attack cool down
+    /// </summary>
+    private IEnumerator AttackCDRoutine()
+    {
+        yield return new WaitForSeconds(swordAttackCD);
+        isAttacking = false;
     }
 
     /// <summary>
