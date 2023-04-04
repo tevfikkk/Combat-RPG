@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     // This is a property. It's a shortcut for a getter and setter.
     public bool FacingLeft
     {
         get => facingLeft;
     }
-
-    public static PlayerController Instance;
 
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float dashSpeed = 3.3f; // dash speed multiplier
@@ -29,10 +27,9 @@ public class PlayerController : MonoBehaviour
     private bool facingLeft = false;
     private bool isDashing = false;
 
-    private void Awake()
+    protected override void Awake()
     {
-        // Singleton pattern
-        Instance = this;
+        base.Awake();
 
         // Create new instance of Player Controls
         playerControls = new PlayerControls();
