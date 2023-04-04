@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float parallaxOffset = -.15f;
+
+    private Camera cam;
+    private Vector2 startPos; // starting position of the background
+    private Vector2 travel => (Vector2)cam.transform.position - startPos; // how far the camera has moved since the start
+
+    private void Awake()
     {
-        
+        cam = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        startPos = transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = startPos + travel * parallaxOffset;
     }
 }
