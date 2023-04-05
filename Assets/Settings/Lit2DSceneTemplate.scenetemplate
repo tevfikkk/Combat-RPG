@@ -22,7 +22,8 @@ Texture2D:
   m_MipCount: 1
   m_IsReadable: 1
   m_IsPreProcessed: 0
-  m_IgnoreMasterTextureLimit: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
   m_VTOnly: 0
@@ -31,7 +32,7 @@ Texture2D:
   m_TextureDimension: 2
   m_TextureSettings:
     serializedVersion: 2
-    m_FilterMode: 1
+    m_FilterMode: 0
     m_Aniso: 1
     m_MipBias: 0
     m_WrapU: 1
@@ -64,8 +65,7 @@ MonoBehaviour:
   description: Contains an orthographic camera and a Global Light 2D. Works with
     the 2D Renderer in Universal RP.
   preview: {fileID: -3604256930052969394}
-  dependencies:
-  - dependency: {fileID: 2800000, guid: b3ab972b21db85d48ade9657efdd4771, type: 3}
-    instantiationMode: 1
+  dependencies: []
   templatePipeline: {fileID: 0}
+  badge: {fileID: 0}
   addToDefaults: 1
