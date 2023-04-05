@@ -10,6 +10,9 @@ public class UIFade : Singleton<UIFade>
 
     private IEnumerator fadeRoutine;
 
+    /// <summary>
+    /// Fades the screen to black.
+    /// </summary>
     public void FadeToBlack()
     {
         if (fadeRoutine != null)
@@ -21,6 +24,9 @@ public class UIFade : Singleton<UIFade>
         StartCoroutine(fadeRoutine);
     }
 
+    /// <summary>
+    /// Fades the screen to clear.
+    /// </summary>
     public void FadeToClear()
     {
         if (fadeRoutine != null)
@@ -32,6 +38,10 @@ public class UIFade : Singleton<UIFade>
         StartCoroutine(fadeRoutine);
     }
 
+    /// <summary>
+    /// Fades the screen to the target alpha.
+    /// Target alpha is adjusted by the fade speed.
+    /// </summary>
     private IEnumerator FadeRoutine(float targetAlpha)
     {
         while (!Mathf.Approximately(fadeScreen.color.a, targetAlpha))

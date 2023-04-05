@@ -20,6 +20,9 @@ public class AreaExit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads the scene after a delay.
+    /// </summary>
     private IEnumerator LoadSceneRoutine()
     {
         yield return new WaitForSeconds(waitToLoadTime);
