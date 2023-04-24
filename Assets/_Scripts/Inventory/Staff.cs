@@ -4,9 +4,40 @@ using UnityEngine;
 
 public class Staff : MonoBehaviour, IWeapon
 {
+    [SerializeField] private WeaponInfo weaponInfo;
+
+    private void Update()
+    {
+        MouseFollowWithOffset();
+    }
+
     public void Attack()
     {
         print("Staff attack!");
-        ActiveWeapon.Instance.ToggleIsAttacking(false);
+    }
+
+    public WeaponInfo GetWeaponInfo() => weaponInfo;
+
+    /// <summary>
+    /// Sword follows the mouse position
+    /// and rotates based on the mouse position
+    /// </summary>
+    private void MouseFollowWithOffset()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(PlayerController.Instance.transform.position);
+
+        // angle with arc tangent of mouse position
+        // this is to get the angle of the mouse position at z axis
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+
+        if (mousePos.x < playerScreenPoint.x)
+        {
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, -180, angle);
+        }
+        else
+        {
+            ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 }
