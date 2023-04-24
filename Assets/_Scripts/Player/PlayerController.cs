@@ -13,6 +13,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float dashSpeed = 3.3f; // dash speed multiplier
     [SerializeField] private TrailRenderer trailRenderer; // trail renderer for dash effect
+    [SerializeField] private Transform weaponCollider; // weapon collider for attack
 
     // Event comes from Input System through Player Controls script
     private PlayerControls playerControls;
@@ -62,6 +63,8 @@ public class PlayerController : Singleton<PlayerController>
         AdjustPlayerFacingDirection();
         Move();
     }
+
+    public Transform GetWeaponCollider() => weaponCollider;
 
     /// <summary>
     /// Reads player input from PlayerControls script

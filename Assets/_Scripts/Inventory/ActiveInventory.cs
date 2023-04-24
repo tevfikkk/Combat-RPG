@@ -18,12 +18,16 @@ public class ActiveInventory : MonoBehaviour
         // It is done with ReadValue as the number pressed is a float.
         // Then we cast it to an int to get the index number of the slot since floating point numbers occur an error.
         playerControls.Inventory.Keyboard.performed += ctx => ToggleActiveSlot((int)ctx.ReadValue<float>());
+
+        ToggleActiveHighlight(0);
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
     }
+
+    public void EquipStartingWeapong() => ToggleActiveHighlight(0);
 
     /// <summary>
     /// Toggles the active inventory slot based on the number pressed on the keyboard.
@@ -49,5 +53,34 @@ public class ActiveInventory : MonoBehaviour
 
         // Activates the highlight of the inventory slot.
         transform.GetChild(indexNum).GetChild(0).gameObject.SetActive(true);
+
+        ChangeActiveWeapon();
+    }
+
+    private void ChangeActiveWeapon()
+    {
+        if (ActiveWeapon.Instance.CurrentActiveWeapon != null)
+        {
+            Destroy(ActiveWeapon.Instance.CurrentActiveWeapon.gameObject);
+        }
+
+        Transform childTransform = transform.GetChild(activeSlotIndexNum);
+        InventorySlot inventorySlot = childTransform.GetComponentInChildren<InventorySlot>();
+        WeaponInfo weaponInfo = inventorySlot.GetWeaponInfo();
+        GameObject weaponToSpawn = weaponInfo.weaponPrefab;
+
+        if (weaponInfo == null)
+        {
+            ActiveWeapon.Instance.WeaponNull();
+            return;
+        }
+
+        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform);
+        // ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
+        // newWeapon.transform.parent = ActiveWeapon.Instance.transform;
+
+        ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
+
+
     }
 }
