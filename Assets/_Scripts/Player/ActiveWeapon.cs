@@ -56,11 +56,16 @@ public class ActiveWeapon : Singleton<ActiveWeapon>
         attackButtonDown = false;
     }
 
+    /// <summary>
+    /// Attack method
+    /// </summary>
     private void Attack()
     {
         if (attackButtonDown && !isAttacking)
         {
             isAttacking = true;
+
+            // Invoke the attack method from the current active weapon as IWeapon
             (currentActiveWeapon as IWeapon).Attack();
         }
     }
