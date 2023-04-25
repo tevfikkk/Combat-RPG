@@ -57,6 +57,9 @@ public class ActiveInventory : MonoBehaviour
         ChangeActiveWeapon();
     }
 
+    /// <summary>
+    /// Changes the active weapon.
+    /// </summary>
     private void ChangeActiveWeapon()
     {
         if (ActiveWeapon.Instance.CurrentActiveWeapon != null)
@@ -64,11 +67,11 @@ public class ActiveInventory : MonoBehaviour
             Destroy(ActiveWeapon.Instance.CurrentActiveWeapon.gameObject);
         }
 
-        Transform childTransform = transform.GetChild(activeSlotIndexNum);
-        InventorySlot inventorySlot = childTransform.GetComponentInChildren<InventorySlot>();
+        Transform childTransform = transform.GetChild(activeSlotIndexNum); // Gets the child transform of the active slot.
+        InventorySlot inventorySlot = childTransform.GetComponentInChildren<InventorySlot>(); // Gets the inventory slot component of the child transform.
 
-        WeaponInfo weaponInfo = inventorySlot.GetWeaponInfo();
-        GameObject weaponToSpawn = weaponInfo?.weaponPrefab;
+        WeaponInfo weaponInfo = inventorySlot.GetWeaponInfo(); // Gets the weapon info of the inventory slot.
+        GameObject weaponToSpawn = weaponInfo?.weaponPrefab; // Gets the weapon prefab of the weapon info.
 
         if (weaponInfo == null)
         {
@@ -76,12 +79,10 @@ public class ActiveInventory : MonoBehaviour
             return;
         }
 
-        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform.position, Quaternion.identity);
-        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0);
-        newWeapon.transform.parent = ActiveWeapon.Instance.transform;
+        GameObject newWeapon = Instantiate(weaponToSpawn, ActiveWeapon.Instance.transform.position, Quaternion.identity); // Spawns the weapon.
+        ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, 0); // Resets the rotation of the weapon.
+        newWeapon.transform.parent = ActiveWeapon.Instance.transform; // Sets the parent of the weapon to the ActiveWeapon instance.
 
-        ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>());
-
-
+        ActiveWeapon.Instance.NewWeapon(newWeapon.GetComponent<MonoBehaviour>()); // Sets the new weapon as the active weapon.
     }
 }
