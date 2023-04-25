@@ -35,7 +35,7 @@ Transform:
   - {fileID: 3638975292903712583}
   - {fileID: 3638975293280102701}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &3638975292629517374
 SortingGroup:
