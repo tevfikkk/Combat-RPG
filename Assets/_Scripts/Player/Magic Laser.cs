@@ -6,6 +6,7 @@ public class MagicLaser : MonoBehaviour
 {
     [SerializeField] private float laserGrowTime = 20f;
 
+    private bool isGrowing = true;
     private float laserRange;
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
@@ -19,6 +20,14 @@ public class MagicLaser : MonoBehaviour
     private void Start()
     {
         LaserFaceMouse();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<Indestructible>() && !other.isTrigger)
+        {
+            isGrowing = false; // stop growing when hits indestructible object such like walls
+        }
     }
 
     /// <summary>
@@ -37,7 +46,7 @@ public class MagicLaser : MonoBehaviour
     {
         float timePassed = 0f;
 
-        while (spriteRenderer.size.x < laserRange)
+        while (spriteRenderer.size.x < laserRange && isGrowing)
         {
             timePassed += Time.deltaTime;
             float linerT = timePassed / laserGrowTime;
