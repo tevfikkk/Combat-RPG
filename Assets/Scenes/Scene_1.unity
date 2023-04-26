@@ -36710,9 +36710,12 @@ GameObject:
   - component: {fileID: 1733984417}
   - component: {fileID: 1733984419}
   - component: {fileID: 1733984421}
-  - component: {fileID: 1733984420}
   - component: {fileID: 1733984422}
   - component: {fileID: 1733984423}
+  - component: {fileID: 1733984420}
+  - component: {fileID: 1733984424}
+  - component: {fileID: 1733984426}
+  - component: {fileID: 1733984425}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -36901,6 +36904,47 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1733984424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733984416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0ea7d6b4202dd4fac4fb46d0cb3bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  knockbackThrustAmount: 50
+--- !u!114 &1733984425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733984416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd359dd0be5d9049a1241d6087297be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whiteFlashMat: {fileID: 2100000, guid: 6d51c2ff800e3ae418daa8389c2d569a, type: 2}
+  restoreDefaultMatTime: 0.2
+--- !u!114 &1733984426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733984416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac09e29dc2a06d2429490c98d6562987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackTime: 0.2
 --- !u!1 &1737881993
 GameObject:
   m_ObjectHideFlags: 0
@@ -55131,10 +55175,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3638975292629517373, guid: f77968eca69bfff4d925e97f9eef9596, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3638975292629517374, guid: f77968eca69bfff4d925e97f9eef9596, type: 3}
-      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3638975292629517375, guid: f77968eca69bfff4d925e97f9eef9596, type: 3}
