@@ -7,6 +7,11 @@ public class CameraController : Singleton<CameraController>
 {
     private CinemachineVirtualCamera virtualCamera;
 
+    private void Start()
+    {
+        SetPlayerCameraFollow();
+    }
+
     /// <summary>
     /// Sets the player as the camera's follow target.
     /// </summary>

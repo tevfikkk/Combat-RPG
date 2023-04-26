@@ -51,8 +51,6 @@ public class MagicLaser : MonoBehaviour
             timePassed += Time.deltaTime;
             float linerT = timePassed / laserGrowTime;
 
-            print($"Linear T: {linerT}");
-
             // sprite size
             spriteRenderer.size = new Vector2(Mathf.Lerp(1f, laserRange, linerT), 1f);
 
