@@ -38,13 +38,17 @@ public class Projectile : MonoBehaviour
         // Trees have is trigger in their base (stamps). we want to have projectiles collide with tree's base.
         if (!other.isTrigger && (indestructible || enemyHealth || player))
         {
-            if (player && isEnemyProjectile)
+            if ((player && isEnemyProjectile) || (enemyHealth && !isEnemyProjectile))
             {
-                // player take damage
-                player.TakeDamage(1, transform);
+                player?.TakeDamage(1, transform);
+                Instantiate(particleOnHitPrefabVFX, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
-            Instantiate(particleOnHitPrefabVFX, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            else if (!other.isTrigger && indestructible)
+            {
+                Instantiate(particleOnHitPrefabVFX, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
         }
     }
 

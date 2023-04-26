@@ -73,7 +73,7 @@ Transform:
   - {fileID: 2438092907622395799}
   - {fileID: 2438092907204341099}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2438092906168463962
 SpriteRenderer:
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  knockbackThrustAmount: 50
+  knockbackThrustAmount: 15
   damageRecoveryTime: 1
 --- !u!114 &2438092906168463953
 MonoBehaviour:
